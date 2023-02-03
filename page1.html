@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Bodegon</title>
+    <link  rel="icon"   href="/public/images/icon.png" type="image/png" />
+    <script src="https://kit.fontawesome.com/22bc740545.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style/style.css">
+    
+</head>
+<nav>
+    <a href="/index.html" class="logo"></a>
+    <div class="containerBtnNav">
+        <button id="btnOfertaHTML" class="btnNone btnNav">Vinos Seleccionados</button>
+        <button id="btnCatalogoHTML" class="btnNone btnNav">Catalogo completo</button>
+        <button id="btnOpcionesHTML" class="btnNone btnNav">Opciones Avanzadas</button>
+        
+    </div>
+    <div class="containerOpcion">
+        <i  class="fa-solid fa-user"></i>
+        
+        <button id="btnCarritoHTML" class="btnNone" href="" onclick="window.carrito.showModal();"><i class="fa-solid fa-cart-shopping"></i></button>
+    </div>
+</nav>
+<body class="fondoMadera">
+    <section id="ofertaHTML" class="sectionOferta">
+        
+    </section>
+    <section id="catalogoHTML" class="sectionCatalogo">
+    </section>
+
+    <dialog class="carrito" id="carrito">
+        <div class="containerTitle">
+            <h1>Tu Carrito</h1>
+            <button id="cerrarCarritoHTML" class="btnNone btnExit" onclick="window.carrito.close();"><i class="fa-regular fa-circle-xmark"></i></button>
+        </div>
+        <div class="list">
+            <div class="listEncabezado">
+                <p>Cantidad</p>
+                <p>Producto</p>
+                <p>Bodega</p>
+                <p>Precio Unitario</p>
+                <p>Precio Total</p>
+                
+            </div>
+            
+        </div>
+        <div id="verCarritoHTML" class="list">
+        
+        </div>
+        <div id="totalCarritoHTML" class="list listTotal">
+            
+        </div>
+    </dialog>
+
+<script src="script/js.js"></script>
+<script src="/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+</body>
+
+</html>
