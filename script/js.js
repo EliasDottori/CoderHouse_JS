@@ -210,7 +210,6 @@ const carrito = [];
 
 //MUESTRA LA OFERTA
 function verOferta(lista) {
-  let cantidadVino = 0;
   for (let vino of lista) {
     if (vino.oferta === 1) {
       let vinoCatalogo = document.createElement("div");
@@ -227,7 +226,7 @@ function verOferta(lista) {
         <div class="tipoText">
           <h2>$${vino.precio}</h2>
           <div class="containerButton">
-          <input id="textCant${vino.id}" class="textboxCantidad" type="text" value="1">
+          <input id="textCant${vino.id}" class="textboxCantidad" type="text" value="1" required>
           <button id="agregarBtn${vino.id}" class="btnAgregar">Agregar</button>
         
           </div>
@@ -246,16 +245,16 @@ function verOferta(lista) {
       let agregarBtn = document.getElementById(`agregarBtn${vino.id}`);
 
       agregarBtn.addEventListener("click", () => {
-        if (isNaN(inputHTML.value) || inputHTML.value <= 0) {
+        if (inputHTML.value > 0) {
+          vino.cantidad = parseInt(inputHTML.value);
+          agregarCarrito(vino);
+          inputHTML.value = 1;
+        } else {
           Swal.fire({
             background: "#FFDEC1",
             icon: "error",
             title: "La cantidad debe ser un numero y mayor a 0",
           });
-          inputHTML.value = 1;
-        } else {
-          vino.cantidad = parseInt(inputHTML.value);
-          agregarCarrito(vino);
           inputHTML.value = 1;
         }
       });
@@ -265,7 +264,6 @@ function verOferta(lista) {
 
 //MUESTRA CATALOGO COMPLETO
 function verCatalogo(lista) {
-  let cantidadVino = 0;
   for (let vino of lista) {
     let vinoCatalogo = document.createElement("div");
     vinoCatalogo.classList.add("containerVinoSmall");
@@ -286,7 +284,7 @@ function verCatalogo(lista) {
           <div class="tipoSmallText">
               <h2>$${vino.precio}</h2>
               <div class="containerSmallButton">
-                <input id="textCant${vino.id}" class="textboxCantidad" type="text" value="1">
+                <input id="textCant${vino.id}" class="textboxCantidad" type="text" value="1" required>
                 <button id="agregarBtn${vino.id}" class="btnAgregar">Agregar</button>
               </div>
           </div>
@@ -298,19 +296,20 @@ function verCatalogo(lista) {
 
     let agregarBtn = document.getElementById(`agregarBtn${vino.id}`);
 
-    if (isNaN(inputHTML.value) && inputHTML.value <= 0) {
-      Swal.fire({
-        icon: "Error",
-        title: "La cantidad debe ser un Numero mayor a 0",
-        background: "#FFDEC1",
-      });
-    } else {
-      agregarBtn.addEventListener("click", () => {
+    agregarBtn.addEventListener("click", () => {
+      if (inputHTML.value > 0) {
         vino.cantidad = parseInt(inputHTML.value);
         agregarCarrito(vino);
         inputHTML.value = 1;
-      });
-    }
+      } else {
+        Swal.fire({
+          background: "#FFDEC1",
+          icon: "error",
+          title: "La cantidad debe ser un numero y mayor a 0",
+        });
+        inputHTML.value = 1;
+      }
+    });
   }
 }
 
