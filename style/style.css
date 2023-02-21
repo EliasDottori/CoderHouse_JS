@@ -80,6 +80,14 @@ i{
     background-position: center;
 }
 
+.expansibleNav{
+    height: 40px;
+    background-color: #c6c6c6;
+    width: 100%;
+    position: fixed;
+    top: 100px;
+}
+
 .sectionInicio{
     height: 100vh;
     width: 100%;

@@ -45,20 +45,7 @@ let verCarritoHTML = document.getElementById("verCarritoHTML");
 let cerrarCarritoHTML = document.getElementById("cerrarCarritoHTML");
 let totalCarritoHTML = document.getElementById("totalCarritoHTML");
 let total = 0;
-
-class Vino {
-  constructor(id, nombre, bodega, tipo, variedad, año, precio, img, oferta) {
-    (this.id = id),
-      (this.nombre = nombre),
-      (this.bodega = bodega),
-      (this.tipo = tipo),
-      (this.variedad = variedad),
-      (this.año = año),
-      (this.precio = precio);
-    this.img = img;
-    this.oferta = oferta;
-  }
-}
+let catalogoJson = "../public/data/vino.json";
 
 class Carrito {
   constructor(id, nombre, bodega, tipo, precio, cantidad) {
@@ -71,140 +58,28 @@ class Carrito {
   }
 }
 
-const vino1 = new Vino(
-  1,
-  "Iscay",
-  "Trapiche",
-  "tinto",
-  "Malbec & Cabernet-French",
-  "2018",
-  27510,
-  "iscay.png",
-  1
-);
-
-const vino2 = new Vino(
-  2,
-  "Adrianna Vineyard",
-  "Catena Zapata",
-  "Blanco",
-  "Chardonnay",
-  "2019",
-  24850,
-  "catenazapata.png",
-  1
-);
-
-const vino3 = new Vino(
-  3,
-  "Nosotros",
-  "Susana Balbo",
-  "tinto",
-  "Malbec",
-  "2019",
-  18500,
-  "nosotros.png",
-  1
-);
-
-const vino4 = new Vino(
-  4,
-  "Alma Mora",
-  "Finca Las Moras",
-  "tinto",
-  "Malbec",
-  "2020",
-  1245,
-  "almamora.png",
-  0
-);
-
-const vino5 = new Vino(
-  5,
-  "Rutini",
-  "La Rural",
-  "tinto",
-  "Malbec",
-  "2020",
-  2550,
-  "rutini.png",
-  0
-);
-
-const vino6 = new Vino(
-  6,
-  "Latitud 33°",
-  "33°",
-  "tinto",
-  "Malbec",
-  "2018",
-  1650,
-  "latitud33.png",
-  0
-);
-
-const vino7 = new Vino(
-  7,
-  "San Felipe Caramagnola",
-  "La Rural",
-  "tinto",
-  "Malbec",
-  "2018",
-  2280,
-  "sanfelipe.png",
-  0
-);
-
-const vino8 = new Vino(
-  8,
-  "Etchart Privado",
-  "Etchart",
-  "blanco",
-  "Torrontés",
-  "2018",
-  950,
-  "etchart.png",
-  0
-);
-
-const vino9 = new Vino(
-  9,
-  "Trumpeter",
-  "La Rural",
-  "tinto",
-  "Malbec",
-  "2019",
-  2280,
-  "trumpeter.png",
-  0
-);
-
-const vino10 = new Vino(
-  10,
-  "Don Valentin Lacrado",
-  "Bianchi",
-  "tinto",
-  "Malbec",
-  "2020",
-  1050,
-  "donvalentin.png",
-  0
-);
-
-const catalogo = [
-  vino1,
-  vino2,
-  vino3,
-  vino4,
-  vino5,
-  vino6,
-  vino7,
-  vino8,
-  vino9,
-  vino10,
-];
-
 const carrito = [];
+
+const catalogo = [];
+
+const obtenerVinos = () => {
+  return fetch(catalogoJson)
+    .then((response) => response.json())
+    .then((data) => {
+      return data.vino;
+    })
+    .catch((error) => {
+      console.error("Error al obtener los datos:", error);
+    });
+};
+
+obtenerVinos()
+  .then((vinos) => {
+    verOferta(vinos);
+  })
+  .catch((error) => {
+    console.error("Error al obtener los datos:", error);
+  });
 
 //OPTION 1
 
@@ -313,7 +188,7 @@ function verCatalogo(lista) {
   }
 }
 
-verOferta(catalogo);
+// verOferta(catalogo);
 
 btnCarritoHTML.addEventListener("click", () => {
   verCarrito(carrito);
@@ -323,14 +198,26 @@ btnOfertaHTML.addEventListener("click", () => {
   ofertaHTML.classList.remove("displayno");
   ofertaHTML.innerHTML = "";
   catalogoHTML.innerHTML = "";
-  verOferta(catalogo);
+  obtenerVinos()
+    .then((vinos) => {
+      verOferta(vinos);
+    })
+    .catch((error) => {
+      console.error("Error al obtener los datos:", error);
+    });
 });
 
 btnCatalogoHTML.addEventListener("click", () => {
   ofertaHTML.classList.add("displayno");
   ofertaHTML.innerHTML = "";
   catalogoHTML.innerHTML = "";
-  verCatalogo(catalogo);
+  obtenerVinos()
+    .then((vinos) => {
+      verCatalogo(vinos);
+    })
+    .catch((error) => {
+      console.error("Error al obtener los datos:", error);
+    });
 });
 
 function agregarCarrito(vino) {

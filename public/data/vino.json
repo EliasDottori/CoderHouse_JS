@@ -1,0 +1,121 @@
+{
+"vino" : [
+    {
+  "id": 1,
+  "nombre": "Iscay",
+  "bodega": "Trapiche",
+  "tipo": "tinto",
+  "variedad": "Malbec & Cabernet-French",
+  "año": "2018",
+  "precio": 27510,
+  "img": "iscay.png",
+  "oferta": 1
+},
+
+{
+  "id": 2,
+  "nombre": "Adrianna Vineyard",
+  "bodega": "Catena Zapata",
+  "tipo": "Blanco",
+  "variedad": "Chardonnay",
+  "año": "2019",
+  "precio": 24850,
+  "img": "catenazapata.png",
+  "oferta": 1
+},
+
+{
+  "id": 3,
+  "nombre": "Nosotros",
+  "bodega": "Susana Balbo",
+  "tipo": "tinto",
+  "variedad": "Malbec",
+  "año": "2019",
+  "precio": 18500,
+  "img": "nosotros.png",
+  "oferta": 1
+},
+{
+  "id": 4,
+  "nombre": "Alma Mora",
+  "bodega": "Finca Las Moras",
+  "tipo": "tinto",
+  "variedad": "Malbec",
+  "año": "2020",
+  "precio": 1245,
+  "img": "almamora.png",
+  "oferta": 0
+},
+
+{
+  "id": 5,
+  "nombre": "Rutini",
+  "bodega": "La Rural",
+  "tipo": "tinto",
+  "variedad": "Malbec",
+  "año": "2020",
+  "precio": 2550,
+  "img": "rutini.png",
+  "oferta": 0
+},
+
+{
+  "id": 6,
+  "nombre": "Latitud 33°",
+  "bodega": "33°",
+  "tipo": "tinto",
+  "variedad": "Malbec",
+  "año": "2018",
+  "precio": 1650,
+  "img": "latitud33.png",
+  "oferta": 0
+},
+
+{
+  "id": 7,
+  "nombre": "Los Haroldos",
+  "bodega": "Haroldos",
+  "tipo": "tinto",
+  "variedad": "Malbec",
+  "año": "2019",
+  "precio": 2280,
+  "img": "losharoldos.png",
+  "oferta": 0
+},
+
+{
+  "id": 8,
+  "nombre": "Etchart Privado",
+  "bodega": "Etchart",
+  "tipo": "blanco",
+  "variedad": "Torrontés",
+  "año": "2018",
+  "precio": 950,
+  "img": "etchart.png",
+  "oferta": 0
+},
+
+{ 
+  "id": 9,
+  "nombre": "Trumpeter",
+  "bodega": "La Rural",
+  "tipo": "tinto",
+  "variedad": "Malbec",
+  "año": 2019,
+  "precio": 2280,
+  "img": "trumpeter.png",
+  "oferta": 0
+},
+
+{
+  "id": 10,
+  "nombre": "Don Valentin Lacrado",
+  "bodega": "Bianchi",
+  "tipo": "tinto",
+  "variedad": "Malbec",
+  "año": "2020",
+  "precio": 1050,
+  "img": "donvalentin.png",
+  "oferta": 0
+}
+]}
