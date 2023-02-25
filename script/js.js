@@ -1,3 +1,5 @@
+//IGNORAR ESTE CODIGO, NO LO QUISE QUITAR PARA EN ALGUN MOMENTO PODER TERMINAR EL LOGIN
+//
 // const singup = document.getElementById("singupinput");
 // const outfocus = document.getElementById("focuslogin");
 // singup.addEventListener(
