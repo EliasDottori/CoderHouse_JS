@@ -87,6 +87,16 @@ obtenerVinos()
     console.error("Error al obtener los datos:", error);
   });
 
+//animacion carga
+
+function animacionCarga() {
+  let carga = document.getElementById("carga");
+  carga.className = "";
+  setTimeout(function () {
+    carga.classList.add("carga");
+  }, 0.5);
+}
+
 //MUESTRA LA OFERTA -- VINOS SELECCIONADOS
 function verOferta(lista) {
   for (let vino of lista) {
@@ -143,6 +153,7 @@ function verOferta(lista) {
 
 //BOTON VER SELECCIONADOS
 btnOfertaHTML.addEventListener("click", () => {
+  animacionCarga();
   ofertaHTML.classList.remove("displayno");
   ofertaHTML.innerHTML = "";
   catalogoHTML.innerHTML = "";
@@ -213,6 +224,7 @@ btnCarritoHTML.addEventListener("click", () => {
 
 //BOTON VER CATALOGO COMPLETO
 btnCatalogoHTML.addEventListener("click", () => {
+  animacionCarga();
   ofertaHTML.classList.add("displayno");
   ofertaHTML.innerHTML = "";
   catalogoHTML.innerHTML = ``;
@@ -329,8 +341,18 @@ function vaciarCarrito(carritoCarga) {
 let selectOrdenHTML = document.getElementById("selectOrden");
 
 selectOrdenHTML.addEventListener("change", function () {
+  animacionCarga();
   catalogoHTML.innerHTML = "";
   let selectedValue = this.value;
+  if (selectedValue == 0) {
+    obtenerVinos()
+      .then((lista) => {
+        verCatalogo(lista);
+      })
+      .catch((error) => {
+        console.error("Error al obtener los datos:", error);
+      });
+  }
   if (selectedValue == 1) {
     obtenerVinos()
       .then((lista) => {

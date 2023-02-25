@@ -24,9 +24,9 @@ html{
     
     animation-fill-mode: both;
     animation-name: cargaOpacity;
-    animation-duration: 1.5s;
+    animation-duration: .3s;
     animation-delay: 0.7s;
-    animation-timing-function: ease;
+    animation-timing-function: linear;
     opacity: 1;
     display: flex;
     justify-content: center;
