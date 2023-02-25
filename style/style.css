@@ -13,6 +13,42 @@ html{
 
 }
 
+.carga {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(27deg, rgba(255,206,163,1) 5%, rgba(250,233,217,1) 50%, rgba(255,206,163,1) 95%);
+    
+    animation-fill-mode: both;
+    animation-name: cargaOpacity;
+    animation-duration: 1.5s;
+    animation-delay: 0.7s;
+    animation-timing-function: ease;
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001; }
+  
+  .logoCarga {
+    background-image: url(../public/images/icon.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100px;
+    width: 100px; 
+z-index: 1000;}
+
+    @keyframes cargaOpacity {
+        0% {
+          opacity: 1; }
+        100% {
+          opacity: 0;
+          z-index: -100; } }
+
 .btnNone{
     background: none;
     cursor: pointer;
@@ -23,7 +59,7 @@ nav{
     padding: 10px;
     height: 100px;
     width: 100%;
-    background-color: #ffdec1;
+    background: linear-gradient(27deg, rgba(255,206,163,1) 5%, rgba(250,233,217,1) 50%, rgba(255,206,163,1) 95%);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -81,12 +117,36 @@ i{
 }
 
 .expansibleNav{
-    height: 40px;
-    background-color: #c6c6c6;
+    height: 50px;
+    background: linear-gradient(27deg, rgba(255,206,163,1) 5%, rgba(250,233,217,1) 50%, rgba(255,206,163,1) 95%);
     width: 100%;
     position: fixed;
     top: 100px;
+    left: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 99;
 }
+
+.selectNameContainer{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.expansibleOption{
+    width: 135px;
+    height: 28px;
+    border-radius: 5px;
+    background-color: #ffe8d3;
+}
+
+.expansibleOption option{
+    background-color: #ffe8d3;
+}
+
+/* AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */
 
 .sectionInicio{
     height: 100vh;
@@ -111,6 +171,9 @@ i{
     font-family: Gabriola;
     
 }
+
+
+/* AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */
 
 .buttonProduct{
     width: 30%;
@@ -259,19 +322,18 @@ i{
     margin: 0 auto;
     height: auto;
     display: flex;
-    margin-top: 160px;
+    margin-top: 210px;
     gap: 180px;
     justify-content: space-around;
     flex-direction: column;
     align-items: center;
     padding-top: 120px;
-    padding-bottom: 50px;
 }
 
 .containerVino{
     width: 90%;
     height: 180px;
-    background-color: #ffcea3;
+    background: linear-gradient(27deg, rgba(255,206,163,1) 20%, rgba(250,233,217,1) 80%);
     border-radius: 10px;
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
     display: flex;
@@ -319,11 +381,17 @@ i{
 
 .btnAgregar{
     padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: #ffe8d3;
 }
 
 .textboxCantidad{
-    width: 35px;
+    width: 50px;
     text-align: center;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: #ffe8d3;
 }
 
 .imgContainer{
@@ -357,7 +425,7 @@ i{
 
 
 .containerVinoSmall{
-    background-color: #ffcea3;
+    background: linear-gradient(27deg, rgba(255,206,163,1) 20%, rgba(250,233,217,1) 80%);
     border-radius: 10px;
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
     width: 260px;
@@ -409,8 +477,10 @@ i{
    margin: auto;
     height: 60%;
     width: 60%;
-    background-color: antiquewhite;
+    background: linear-gradient(27deg, rgba(255,206,163,1) 5%, rgba(250,233,217,1) 50%, rgba(255,206,163,1) 95%);
     padding: 25px;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .containerTitle{
@@ -430,34 +500,127 @@ i{
 
 .list{
     width: 100%;
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow-y: scroll;
+    height: 80%;
 }
 
 .listEncabezado p{
     font-weight: bold;
 }
 
-.list p {
-    width: 20%;
-}
 
 .listItem{
     display: flex;
     justify-content: space-between;
-    height: 50px;
+    height: 100px;
     width: 100%;
+    background: linear-gradient(27deg, rgba(255,206,163,1) 20%, rgba(250,233,217,1) 80%);
+    border-radius: 10px;
+    box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.75);
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    border-bottom: #342E31 1px solid;
+    margin-top: 70px;
 }
 
+.carritoVacio{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+}
+.carritoCantidad{
+    font-size: 36px;
+    text-align: center;
+    width: 20%;
+}
+
+.carritoName{
+    text-align: center;
+    font-weight: bold;
+    width: 100%;
+    font-size: 24px;
+}
+
+.carritoImg{
+    width: 18%;
+}
+
+.containerDescCarrito{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    width: 40%;
+    height: 90%;
+}
+
+
+
+.descCarrito{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+}
+
+.carritoContainerPrecio{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.carritoPrecioTotal{
+    font-weight: bold;
+    font-size: 28px;
+    
+}
 .totalLeft{
     float: left;
 }
 
 .totalSpace{
-    float: left;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#TotalCarritoHTML{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
 }
 
 .totalFont{
-    float: left;
     font-weight: bold;
+    font-size: 24px;
+}
+
+.btnVaciarCarrito{
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: #ffdfd3;
+}
+
+.btnComprarCarrito{
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: #f7ffd3;
+    height: 40px;
+    font-weight: bold;
+    font-size: 16px;
 }

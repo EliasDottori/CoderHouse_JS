@@ -34,7 +34,7 @@
 
 // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
-//Constructor Arreglo y variables
+//Constructor Arreglo y variables Grales
 
 let btnOfertaHTML = document.getElementById("btnOfertaHTML");
 let btnCatalogoHTML = document.getElementById("btnCatalogoHTML");
@@ -46,6 +46,8 @@ let cerrarCarritoHTML = document.getElementById("cerrarCarritoHTML");
 let totalCarritoHTML = document.getElementById("totalCarritoHTML");
 let total = 0;
 let catalogoJson = "../public/data/vino.json";
+let opcAvanzadas = document.getElementById("btnOpcionesHTML");
+let carritoVacio = document.getElementById("carritoVacio");
 
 class Carrito {
   constructor(id, nombre, bodega, tipo, precio, cantidad) {
@@ -61,6 +63,8 @@ class Carrito {
 const carrito = [];
 
 const catalogo = [];
+
+//Obtener datos desde json mediante promise
 
 const obtenerVinos = () => {
   return fetch(catalogoJson)
@@ -81,9 +85,7 @@ obtenerVinos()
     console.error("Error al obtener los datos:", error);
   });
 
-//OPTION 1
-
-//MUESTRA LA OFERTA
+//MUESTRA LA OFERTA -- VINOS SELECCIONADOS
 function verOferta(lista) {
   for (let vino of lista) {
     if (vino.oferta === 1) {
@@ -118,7 +120,7 @@ function verOferta(lista) {
       let inputHTML = document.getElementById(`textCant${vino.id}`);
 
       let agregarBtn = document.getElementById(`agregarBtn${vino.id}`);
-
+      //VALIDACION DE CANTIDAD
       agregarBtn.addEventListener("click", () => {
         if (inputHTML.value > 0) {
           vino.cantidad = parseInt(inputHTML.value);
@@ -137,6 +139,20 @@ function verOferta(lista) {
   }
 }
 
+//BOTON VER SELECCIONADOS
+btnOfertaHTML.addEventListener("click", () => {
+  ofertaHTML.classList.remove("displayno");
+  ofertaHTML.innerHTML = "";
+  catalogoHTML.innerHTML = "";
+  obtenerVinos()
+    .then((vinos) => {
+      verOferta(vinos);
+    })
+    .catch((error) => {
+      console.error("Error al obtener los datos:", error);
+    });
+});
+
 //MUESTRA CATALOGO COMPLETO
 function verCatalogo(lista) {
   for (let vino of lista) {
@@ -144,6 +160,7 @@ function verCatalogo(lista) {
     vinoCatalogo.classList.add("containerVinoSmall");
     vinoCatalogo.setAttribute("id", vino.id);
     vinoCatalogo.innerHTML = `
+    
         <div class="imgSmallContainer">
             <div class="imgSmallVino">
             <img src="/public/images/wine/${vino.img}" width="50" height="200" alt="vino.png">
@@ -170,7 +187,7 @@ function verCatalogo(lista) {
     let inputHTML = document.getElementById(`textCant${vino.id}`);
 
     let agregarBtn = document.getElementById(`agregarBtn${vino.id}`);
-
+    //VALIDACION DE CANT
     agregarBtn.addEventListener("click", () => {
       if (inputHTML.value > 0) {
         vino.cantidad = parseInt(inputHTML.value);
@@ -188,29 +205,15 @@ function verCatalogo(lista) {
   }
 }
 
-// verOferta(catalogo);
-
 btnCarritoHTML.addEventListener("click", () => {
   verCarrito(carrito);
 });
 
-btnOfertaHTML.addEventListener("click", () => {
-  ofertaHTML.classList.remove("displayno");
-  ofertaHTML.innerHTML = "";
-  catalogoHTML.innerHTML = "";
-  obtenerVinos()
-    .then((vinos) => {
-      verOferta(vinos);
-    })
-    .catch((error) => {
-      console.error("Error al obtener los datos:", error);
-    });
-});
-
+//BOTON VER CATALOGO COMPLETO
 btnCatalogoHTML.addEventListener("click", () => {
   ofertaHTML.classList.add("displayno");
   ofertaHTML.innerHTML = "";
-  catalogoHTML.innerHTML = "";
+  catalogoHTML.innerHTML = ``;
   obtenerVinos()
     .then((vinos) => {
       verCatalogo(vinos);
@@ -220,10 +223,11 @@ btnCatalogoHTML.addEventListener("click", () => {
     });
 });
 
+//FUNCION AGREGA VINO SELECCIONADO AL CARRITO y ACUMULA TOTAL
 function agregarCarrito(vino) {
   carrito.push(vino);
-  localStorage.setItem("carrito", JSON.stringify(carrito));
-  localStorage.setItem("total", JSON.stringify(total));
+  sessionStorage.setItem("carrito", JSON.stringify(carrito));
+  sessionStorage.setItem("total", JSON.stringify(total));
   Swal.fire({
     icon: "success",
     title: "Producto agregado al carrito",
@@ -231,62 +235,123 @@ function agregarCarrito(vino) {
   });
 }
 
+//MUESTRA CARRITO RENDERIZACION
+function verCarrito() {
+  let carrito = JSON.parse(sessionStorage.getItem("carrito"));
+
+  let total = 0;
+  if (carrito == null) {
+    carritoVacio.classList.add("carritoVacio");
+    carritoVacio.classList.remove("displayno");
+  } else {
+    carritoVacio.classList.add("displayno");
+    for (let vino of carrito) {
+      let precioTotal = vino.precio * vino.cantidad;
+      let vinoCarrito = document.createElement("div");
+
+      vinoCarrito.classList.add("listItem");
+      vinoCarrito.setAttribute("id", vino.id);
+      vinoCarrito.innerHTML = `
+    <p class="carritoCantidad">${vino.cantidad}</p>
+    <div class="containerDescCarrito">
+        <p class="carritoName">${vino.nombre}</p>
+        <div class="descCarrito">
+            <p>${vino.tipo}</p>
+            <p>${vino.bodega}</p>
+            <p>${vino.variedad}</p>
+        </div>
+        
+    </div>
+    <div class="carritoContainerPrecio">
+        <p class="carritoPrecioParcial">$${vino.precio}</p>
+        <p class="carritoPrecioTotal">$${precioTotal}</p>
+        </div>
+    <div class="carritoImg imgContainer">
+      <div class="imgVino">
+        <img src="/public/images/wine/${vino.img}" width="40" height="160" alt="vino.png">
+      </div>
+    </div>
+      `;
+      verCarritoHTML.appendChild(vinoCarrito);
+
+      total += precioTotal;
+    }
+    let totalCarrito = document.createElement("div");
+    totalCarrito.classList.add("totalSpace");
+    totalCarrito.innerHTML = `
+            <button id="btnVaciar" class="btnNone btnVaciarCarrito">Vaciar Carrito</button>
+            <button id="btnComprar" class="btnNone btnComprarCarrito">Comprar Carrito</button>
+            <p class="totalFont">Total $${total}</p>`;
+    totalCarritoHTML.appendChild(totalCarrito);
+
+    let btnComprar = document.getElementById("btnComprar");
+    let btnVaciar = document.getElementById("btnVaciar");
+
+    btnComprar.addEventListener("click", () => {
+      sessionStorage.clear("carrito");
+      verCarritoHTML.innerHTML = "";
+      totalCarritoHTML.innerHTML = "";
+      carritoVacio.classList.add("carritoVacio");
+      carritoVacio.classList.remove("displayno");
+      window.carrito.close();
+      Swal.fire({
+        icon: "success",
+        title: "Gracias por tu compra! Quieres comprar algo mas?",
+        background: "#FFDEC1",
+      });
+    });
+    btnVaciar.addEventListener("click", () => {
+      sessionStorage.clear("carrito");
+      verCarritoHTML.innerHTML = "";
+      totalCarritoHTML.innerHTML = "";
+      carritoVacio.classList.add("carritoVacio");
+      carritoVacio.classList.remove("displayno");
+      verCarrito();
+    });
+  }
+}
+
+//BOTONM CIERRA CARRITO
 cerrarCarritoHTML.addEventListener("click", () => {
   verCarritoHTML.innerHTML = "";
   totalCarritoHTML.innerHTML = "";
 });
 
-function verCarrito() {
-  const carrito = JSON.parse(localStorage.getItem("carrito"));
-  let total = 0;
-  for (let vino of carrito) {
-    let precioTotal = vino.precio * vino.cantidad;
-    let vinoCarrito = document.createElement("div");
-
-    vinoCarrito.classList.add("listItem");
-    vinoCarrito.setAttribute("id", vino.id);
-    vinoCarrito.innerHTML = `
-        <p>${vino.cantidad}</p>
-        <p>${vino.nombre}</p>
-        <p>${vino.bodega}</p>
-        <p>$${vino.precio}</p>
-        <p>$${precioTotal}</p>
-      `;
-    verCarritoHTML.appendChild(vinoCarrito);
-
-    total += precioTotal;
-  }
-  let totalCarrito = document.createElement("div");
-  totalCarrito.classList.add("listItem");
-  totalCarrito.innerHTML = `<p class="totalFont">Total $${total}</p>`;
-  totalCarritoHTML.appendChild(totalCarrito);
-}
-
+// VACIAR CARRITO
 function vaciarCarrito(carritoCarga) {
   carritoCarga.length = 0;
-  console.log(`Carrito vacio`);
-}
-
-function comprarCarrito(carritoCarga) {
-  carritoCarga.length = 0;
-  console.log(
-    `Valor total del carrito $${total}. Muchas gracias por tu compra!`
-  );
 }
 
 //Opcion Avanzada
 
-function ordenarMenorMayor(lista) {
-  const menorMayor = [].concat(lista);
-  menorMayor.sort((a, b) => a.precio - b.precio);
-  verCatalogo(menorMayor);
-}
+let selectOrdenHTML = document.getElementById("selectOrden");
 
-function ordenarMayorMenor(lista) {
-  const mayorMenor = [].concat(lista);
-  mayorMenor.sort((a, b) => b.precio - a.precio);
-  verCatalogo(mayorMenor);
-}
+selectOrdenHTML.addEventListener("change", function () {
+  catalogoHTML.innerHTML = "";
+  let selectedValue = this.value;
+  if (selectedValue == 1) {
+    obtenerVinos()
+      .then((lista) => {
+        const menorMayor = [].concat(lista);
+        menorMayor.sort((a, b) => a.precio - b.precio);
+        verCatalogo(menorMayor);
+      })
+      .catch((error) => {
+        console.error("Error al obtener los datos:", error);
+      });
+  }
+  if (selectedValue == 2) {
+    obtenerVinos()
+      .then((lista) => {
+        const mayorMenor = [].concat(lista);
+        mayorMenor.sort((a, b) => b.precio - a.precio);
+        verCatalogo(mayorMenor);
+      })
+      .catch((error) => {
+        console.error("Error al obtener los datos:", error);
+      });
+  }
+});
 
 //agregar vino
 
