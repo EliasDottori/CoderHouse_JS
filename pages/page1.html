@@ -10,12 +10,14 @@
     <link rel="stylesheet" href="../style/style.css">
     
 </head>
+<div class="carga">
+    <div class="logoCarga"></div>
+</div>
 <nav>
     <a href="../index.html" class="logo"></a>
     <div class="containerBtnNav">
         <button id="btnOfertaHTML" class="btnNone btnNav">Vinos Seleccionados</button>
         <button id="btnCatalogoHTML" class="btnNone btnNav">Catalogo completo</button>
-        <button id="btnOpcionesHTML" class="btnNone btnNav">Opciones Avanzadas</button>
         
     </div>
     <div class="containerOpcion">
@@ -25,8 +27,18 @@
     </div>
     
 </nav>
-<div class="expansibleNav">
 
+<div class="expansibleNav">
+    <div class="selectNameContainer">
+        <h4>Ordenar por Precio</h4>
+        <select name="select" id="selectOrden" class="expansibleOption">
+            <option value="0" selected >Seleccione</option>
+            <option value="1" >Menor a Mayor</option>
+            <option value="2">Mayor a Menor</option>
+          </select>
+    </div>
+    </div>
+    
 </div>
 <body class="fondoMadera">
     <section id="ofertaHTML" class="sectionOferta">
@@ -40,23 +52,12 @@
             <h1>Tu Carrito</h1>
             <button id="cerrarCarritoHTML" class="btnNone btnExit" onclick="window.carrito.close();"><i class="fa-regular fa-circle-xmark"></i></button>
         </div>
-        <div class="list">
-            <div class="listEncabezado">
-                <p>Cantidad</p>
-                <p>Producto</p>
-                <p>Bodega</p>
-                <p>Precio Unitario</p>
-                <p>Precio Total</p>
-                
-            </div>
-            
-        </div>
+        <div id="carritoVacio" class="displayno">Tu carrito esta vacio ¡Compra algo!</div>
         <div id="verCarritoHTML" class="list">
         
         </div>
-        <div id="totalCarritoHTML" class="list listTotal">
-            
-        </div>
+        <div id="totalCarritoHTML">
+            </div>
     </dialog>
 
 <script src="../script/js.js"></script>
